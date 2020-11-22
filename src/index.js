@@ -1,27 +1,15 @@
-const express = require("express");
-const app = express();
-const port = 5050;
-const httpProxy = require("http-proxy");
-const proxy = httpProxy.createProxyServer({});
-const normalizeUrl = require("normalize-url");
+// Listen on a specific host via the HOST environment variable
+const host = process.env.HOST || "0.0.0.0";
+// Listen on a specific port via the PORT environment variable
+const port = process.env.PORT || 5050;
 
-app.get("/", (req, res) => {
-  if (req.url.includes("https")) {
-    res.send("Proxy does not support HTTPS.");
-  } else if (req.url.includes("http") || req.url.length > 10) {
-    const proxyPath = req.url.substring(6);
-    let newUrl = normalizeUrl(proxyPath);
+const cors_proxy = require("cors-anywhere");
 
-    console.log(newUrl);
-    proxy.web(req, res, {
-      changeOrigin: true,
-      target: newUrl,
-    });
-  } else {
-    res.send("Measter Proxy Server");
-  }
-});
-
-app.listen(port, () => {
-  console.log("Proxy listening on port 5050");
-});
+cors_proxy
+  .createServer({
+    originWhitelist: [], // Allow all origins
+    removeHeaders: ["cookie", "cookie2"],
+  })
+  .listen(port, host, function () {
+    console.log("Running CORS Anywhere on " + host + ":" + port);
+  });
