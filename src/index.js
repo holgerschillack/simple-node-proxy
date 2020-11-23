@@ -4,11 +4,16 @@ const host = process.env.HOST || "0.0.0.0";
 const port = process.env.PORT || 5050;
 
 const cors_proxy = require("cors-anywhere");
+const fs = require("fs");
 
 cors_proxy
   .createServer({
     originWhitelist: [], // Allow all origins
     removeHeaders: ["cookie", "cookie2"],
+    httpsOptions: {
+      pfx: fs.readFileSync("./cert/cert.pfx"),
+      passphrase: "cert",
+    },
   })
   .listen(port, host, function () {
     console.log("Running CORS Anywhere on " + host + ":" + port);
