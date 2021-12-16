@@ -1,4 +1,4 @@
-# Simple Proxy
+# Simple Node Proxy
 
 ## Installation
 
@@ -12,7 +12,7 @@
 ## General Proxy information
 
 If your app hosted on `domain1.com` wants to request images from somewhere else, the requests will likely be blocked due to CORS policies.
-Therefore you can host the `simple-proxy` on the same domain (e.g. a subdomain or just ip:port) and proxy all request for external ressources to the path `proxy-url/external-image-source` (e.g. proxy.domain1.com/www.external-image-url.com/1.jpg)
+Therefore you can host the Simple Node Proxy on the same domain (e.g. a subdomain or just ip:port) and proxy all request for external ressources to the path `proxy-url/external-image-source` (e.g. proxy.domain1.com/www.external-image-url.com/1.jpg)
 
 ## HTTPS/SSL
 
